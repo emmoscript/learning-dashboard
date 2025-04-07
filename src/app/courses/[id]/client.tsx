@@ -13,11 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { BookOpen, Users, Clock, BarChart } from 'lucide-react';
 
-interface CourseDetailClientProps {
-  id: string;
-}
-
-export default function CourseDetailClient({ id }: CourseDetailClientProps) {
+export default function CourseDetailClient({ id }) {
   // Extraer el ID del curso directamente
   const courseId = id ? parseInt(id) : null;
   
@@ -26,7 +22,7 @@ export default function CourseDetailClient({ id }: CourseDetailClientProps) {
   const [completedModules, setCompletedModules] = useState<Set<number>>(new Set());
   const { user } = useContext(AuthContext);
   const router = useRouter();
-  const [course, setCourse] = useState<any>(null);
+  const [course, setCourse] = useState(null);
   
   // Cargar el curso cuando cambie el ID
   useEffect(() => {

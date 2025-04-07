@@ -1,15 +1,26 @@
-// Componente de página asíncrono
-import type { Metadata } from 'next';
-import CourseDetailClient from './client';
+"use client";
 
-// Declaramos la función como asincrónica
-export default async function CoursePage({ params }: { params: { id: string } }) {
-  return <CourseDetailClient id={params.id} />;
-}
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
-// La metadata también asincrónica
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  return {
-    title: `Curso ${params.id}`,
-  };
+// Cargar el componente cliente dinámicamente
+const CourseDetailClient = dynamic(() => import('./client'));
+
+// Página como componente cliente para poder usar dynamic con opciones avanzadas
+export default function Page({ params }) {
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return <div className="container mx-auto p-8">Cargando...</div>;
+  }
+  
+  return (
+    <div>
+      <CourseDetailClient id={params.id} />
+    </div>
+  );
 } 
