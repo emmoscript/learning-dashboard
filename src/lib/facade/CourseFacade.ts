@@ -5,6 +5,7 @@ import {
   ExamHandler, 
   PrerequisiteHandler 
 } from '@/lib/handlers/UnlockHandler';
+import { CourseData } from '@/types/types';
 
 // Keep track of user progress (in real app, this would be in a database)
 const userProgress: Record<number, Record<number, number>> = {}; // userId -> courseId -> progress

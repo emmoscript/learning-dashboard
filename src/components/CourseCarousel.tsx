@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { CourseCard } from '@/components/CourseCard';
-import { CourseData } from '@/types';
+import { CourseData } from '@/types/types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface CourseCarouselProps {

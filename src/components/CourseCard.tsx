@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { CourseData } from '@/types';
+import { CourseData } from '@/types/types';
 import Image from 'next/image';
 
 interface CourseCardProps {
@@ -15,7 +15,7 @@ export function CourseCard({ course, progress = 0, isEnrolled = false }: CourseC
     <Card className="overflow-hidden h-full flex flex-col">
       <div className="relative h-48 w-full">
         <Image 
-          src={course.imagen || '/placeholder-course.jpg'} 
+          src={course.image || '/placeholder-course.jpg'} 
           alt={course.title}
           fill
           style={{ objectFit: 'cover' }}

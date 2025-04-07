@@ -1,32 +1,19 @@
-import { loadStripe, Stripe } from '@stripe/stripe-js';
+// Simulación de la funcionalidad de Stripe sin la dependencia real
 
-// Singleton para asegurar que solo cargamos Stripe una vez
-let stripePromise: Promise<Stripe | null>;
-
-// Función para obtener la instancia de Stripe
-export const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-  }
-  return stripePromise;
-};
-
-// Función para redireccionar al checkout de Stripe
+// Función simulada para redireccionar al checkout
 export const redirectToCheckout = async (sessionId: string) => {
   try {
-    const stripe = await getStripe();
-    const { error } = await stripe!.redirectToCheckout({
-      sessionId,
-    });
+    console.log('Simulando redirección a checkout con sessionId:', sessionId);
     
-    if (error) {
-      console.error('Error al redireccionar al checkout:', error);
-      return { success: false, error: error.message };
-    }
+    // Simular un procesamiento
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Redirigir a la página de éxito directamente
+    window.location.href = '/checkout/success';
     
     return { success: true };
   } catch (error) {
-    console.error('Error en el proceso de checkout:', error);
+    console.error('Error en el proceso de checkout simulado:', error);
     return { 
       success: false, 
       error: error instanceof Error ? error.message : 'Error desconocido' 

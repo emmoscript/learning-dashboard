@@ -1,4 +1,4 @@
-import { CourseData } from "@/types";
+import { CourseData } from "@/types/types";
 
 export const courses: CourseData[] = [
   {
@@ -13,35 +13,35 @@ export const courses: CourseData[] = [
     modules: [
       {
         title: "Fundamentos de Programación",
+        description: "Aprende los fundamentos básicos de programación",
         videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
         lessons: ["Introducción a la lógica", "Variables y tipos de datos", "Estructuras de control"],
-        exam: {
-          questions: [
-            {
-              question: "¿Qué es una variable?",
-              options: [
-                "Una función que retorna un valor",
-                "Un espacio en memoria para almacenar datos",
-                "Un operador lógico",
-                "Un tipo de estructura de control"
-              ],
-              correctAnswer: 1
-            },
-            {
-              question: "¿Cuál NO es una estructura de control?",
-              options: [
-                "if-else",
-                "for",
-                "while",
-                "variable"
-              ],
-              correctAnswer: 3
-            }
-          ]
-        }
+        questions: [
+          {
+            question: "¿Qué es una variable?",
+            options: [
+              "Una función que retorna un valor",
+              "Un espacio en memoria para almacenar datos",
+              "Un operador lógico",
+              "Un tipo de estructura de control"
+            ],
+            correctAnswer: 1
+          },
+          {
+            question: "¿Cuál NO es una estructura de control?",
+            options: [
+              "if-else",
+              "for",
+              "while",
+              "variable"
+            ],
+            correctAnswer: 3
+          }
+        ]
       },
       {
         title: "Funciones y Arrays",
+        description: "Aprende a crear funciones y trabajar con arrays",
         videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
         lessons: ["Funciones básicas", "Parámetros y retorno", "Arrays y colecciones"],
         exam: {

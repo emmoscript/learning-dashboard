@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useContext } from 'react';
-import { CourseData } from '@/types';
+import { CourseData } from '@/types/types';
 import { useCart } from '@/context/CartContext';
 import { AuthContext } from '@/context/AuthContext';
 import { CourseFacade } from '@/lib/facade/CourseFacade';
@@ -29,7 +29,7 @@ export function CoursePaymentOptions({ course }: CoursePaymentOptionsProps) {
       price: course.price || 19.99,
       type: 'course',
       quantity: 1,
-      image: course.imagen || '/placeholder-course.jpg',
+      image: course.image || '/placeholder-course.jpg',
       courseId: course.id
     });
     

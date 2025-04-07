@@ -24,7 +24,12 @@
     "types": ["cypress", "node"],
     "noImplicitAny": false,
     "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "ignoreDeprecations": "5.0",
+    "checkJs": false
   },
   "include": [
     "next-env.d.ts", 

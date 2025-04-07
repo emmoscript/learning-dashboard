@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { CourseFacade } from '@/lib/facade/CourseFacade';
-import { CourseData } from '@/types';
+import { CourseData } from '@/types/types';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -79,7 +79,7 @@ export default function MyCourses() {
               <div key={course.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
                 <div className="relative h-48 w-full">
                   <Image 
-                    src={course.imagen || '/placeholder-course.jpg'} 
+                    src={course.image || '/placeholder-course.jpg'} 
                     alt={course.title}
                     fill
                     style={{ objectFit: 'cover' }}
@@ -121,7 +121,7 @@ export default function MyCourses() {
             <div key={course.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
               <div className="relative h-48 w-full">
                 <Image 
-                  src={course.imagen || '/placeholder-course.jpg'} 
+                  src={course.image || '/placeholder-course.jpg'} 
                   alt={course.title}
                   fill
                   style={{ objectFit: 'cover' }}
