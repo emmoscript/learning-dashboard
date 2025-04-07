@@ -1,9 +1,7 @@
-"use client";
+// Separar la definición del componente del lado del servidor y del cliente
 
-import { useEffect, useState, useCallback, useContext } from 'react';
-import { useRouter } from 'next/navigation';
-import { CourseFacade } from '@/lib/facade/CourseFacade';
-import { AuthContext } from '@/context/AuthContext';
+// Componente del lado del servidor (sin "use client")
+import { CoursePaymentOptions } from '@/components/Course/CoursePaymentOptions';
 import VideoSection from '@/components/Dashboard/VideoSection';
 import { ModuleList } from '@/components/Dashboard/ModuleList';
 import { ExamSection } from '@/components/Dashboard/ExamSection';
@@ -11,16 +9,28 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { BookOpen, Users, Clock, BarChart } from 'lucide-react';
-import { CoursePaymentOptions } from '@/components/Course/CoursePaymentOptions';
 
-interface CourseDetailProps {
+// Esta es la función de página del lado del servidor
+export default function Page({ params }: { params: { id: string } }) {
+  return <CourseDetailClient params={params} />;
+}
+
+// Ahora el componente del lado del cliente
+"use client";
+
+import { useEffect, useState, useCallback, useContext } from 'react';
+import { useRouter } from 'next/navigation';
+import { CourseFacade } from '@/lib/facade/CourseFacade';
+import { AuthContext } from '@/context/AuthContext';
+
+interface CourseDetailClientProps {
   params: {
     id: string;
   };
 }
 
-export default function CourseDetail({ params }: CourseDetailProps) {
-  // Extraer el ID del curso directamente sin React.use()
+function CourseDetailClient({ params }: CourseDetailClientProps) {
+  // Extraer el ID del curso directamente
   const courseId = params.id ? parseInt(params.id) : null;
   
   const [currentModule, setCurrentModule] = useState(0);
