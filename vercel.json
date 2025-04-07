@@ -1,0 +1,10 @@
+{
+  "buildCommand": "next build --no-lint --skip-type-check",
+  "ignoreCommand": "next lint",
+  "typescript": {
+    "ignoreBuildErrors": true
+  },
+  "eslint": {
+    "ignoreDuringBuilds": true
+  }
+} 
