@@ -6,17 +6,9 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CheckCircle, CloudLightning, Code, Terminal } from 'lucide-react';
-import React from 'react';
 
-interface LabsDetailProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function LabDetail({ params }: LabsDetailProps) {
-  const resolvedParams = React.use(params);
-  const labId = resolvedParams.id ? parseInt(resolvedParams.id) : null;
+export default function LabDetail({ params }) {
+  const labId = params.id ? parseInt(params.id) : null;
   
   const [activeTab, setActiveTab] = useState<string>('instructions');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
