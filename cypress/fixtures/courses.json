@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "TypeScript Avanzado",
+    "description": "Domina TypeScript con patrones avanzados y mejores prácticas",
+    "instructor": "Ana Martínez",
+    "image": "https://picsum.photos/600/400?random=1",
+    "duration": "12 horas",
+    "level": "Avanzado",
+    "price": 4999,
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "title": "React y Next.js para aplicaciones modernas",
+    "description": "Construye aplicaciones web modernas con React y Next.js",
+    "instructor": "Carlos Rodríguez",
+    "image": "https://picsum.photos/600/400?random=2",
+    "duration": "15 horas",
+    "level": "Intermedio",
+    "price": 5999,
+    "rating": 4.9
+  },
+  {
+    "id": 3,
+    "title": "APIs RESTful con Node.js",
+    "description": "Diseña e implementa APIs RESTful escalables con Node.js",
+    "instructor": "Laura Sánchez",
+    "image": "https://picsum.photos/600/400?random=3",
+    "duration": "10 horas",
+    "level": "Intermedio",
+    "price": 3999,
+    "rating": 4.7
+  },
+  {
+    "id": 4,
+    "title": "MongoDB para desarrolladores",
+    "description": "Aprende a utilizar MongoDB en aplicaciones web modernas",
+    "instructor": "Roberto Gómez",
+    "image": "https://picsum.photos/600/400?random=4",
+    "duration": "8 horas",
+    "level": "Básico",
+    "price": 2999,
+    "rating": 4.5
+  },
+  {
+    "id": 5,
+    "title": "DevOps para desarrolladores",
+    "description": "Integra prácticas DevOps en tu flujo de desarrollo",
+    "instructor": "Marta López",
+    "image": "https://picsum.photos/600/400?random=5",
+    "duration": "14 horas",
+    "level": "Avanzado",
+    "price": 6999,
+    "rating": 4.6
+  },
+  {
+    "id": 6,
+    "title": "Fundamentos de Python",
+    "description": "Introducción completa al lenguaje de programación Python",
+    "instructor": "Diego Fernández",
+    "image": "https://picsum.photos/600/400?random=6",
+    "duration": "10 horas",
+    "level": "Básico",
+    "price": 1999,
+    "rating": 4.8
+  }
+] 

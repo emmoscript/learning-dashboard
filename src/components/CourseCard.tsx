@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Lock, BookOpen } from 'lucide-react';
 import { CourseData } from '@/types';
+import Image from 'next/image';
 
 interface CourseCardProps {
   course: CourseData;
@@ -13,23 +13,14 @@ interface CourseCardProps {
 export function CourseCard({ course, progress = 0, isEnrolled = false }: CourseCardProps) {
   return (
     <Card className="overflow-hidden h-full flex flex-col">
-      <div className="aspect-video relative overflow-hidden bg-gray-100">
-        {course.imagen ? (
-          <img 
-            src={course.imagen} 
-            alt={course.title} 
-            className="object-cover w-full h-full" 
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-blue-100">
-            <BookOpen className="w-12 h-12 text-blue-500" />
-          </div>
-        )}
-        {!isEnrolled && (
-          <div className="absolute inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center">
-            <Lock className="w-8 h-8 text-white" />
-          </div>
-        )}
+      <div className="relative h-48 w-full">
+        <Image 
+          src={course.imagen || '/placeholder-course.jpg'} 
+          alt={course.title}
+          fill
+          style={{ objectFit: 'cover' }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       </div>
       
       <CardHeader className="pb-2">

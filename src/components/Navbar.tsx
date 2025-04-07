@@ -6,6 +6,7 @@ import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Menu, X, LogIn, LogOut, User, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ShoppingCartComponent } from '@/components/Cart/ShoppingCart';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,18 +46,17 @@ export default function Navbar() {
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             {user ? (
-              <div className="flex items-center space-x-4">
-                <div className="text-sm font-medium text-gray-700">
-                  {user.email}
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="flex items-center"
-                >
-                  <LogOut className="h-4 w-4 mr-1" />
-                  Cerrar sesión
+              <div className="flex gap-4 items-center">
+                <Link href="/courses/my-courses" className="flex items-center text-sm text-gray-600 hover:text-blue-600">
+                  <GraduationCap className="mr-1 h-4 w-4" />
+                  <span>Mis Cursos</span>
+                </Link>
+                
+                <ShoppingCartComponent />
+                
+                <Button variant="ghost" size="sm" onClick={handleLogout} className="text-sm">
+                  <LogOut className="mr-1 h-4 w-4" />
+                  <span>Cerrar Sesión</span>
                 </Button>
               </div>
             ) : (
@@ -94,9 +94,24 @@ export default function Navbar() {
           <Link href="/" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
             Inicio
           </Link>
-          <Link href="/courses/my-courses" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
-            Mis Cursos
-          </Link>
+          <div className="mt-4 flex flex-col space-y-3">
+            <Link href="/courses/my-courses" className="flex items-center text-gray-600 hover:text-blue-600">
+              <GraduationCap className="mr-1 h-4 w-4" />
+              <span>Mis Cursos</span>
+            </Link>
+            
+            <div className="py-1">
+              <ShoppingCartComponent />
+            </div>
+            
+            <button
+              onClick={handleLogout}
+              className="flex items-center text-gray-600 hover:text-blue-600"
+            >
+              <LogOut className="mr-1 h-4 w-4" />
+              <span>Cerrar Sesión</span>
+            </button>
+          </div>
           <Link href="/#pricing" className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
             Precios
           </Link>

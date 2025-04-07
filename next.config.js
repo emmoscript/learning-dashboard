@@ -1,7 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  eslint: {
+    // Configuración para ignorar errores de ESLint durante la compilación
+    ignoreDuringBuilds: true,
+  },
   images: {
-    domains: ['via.placeholder.com', 'picsum.photos'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
 }
 

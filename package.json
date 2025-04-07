@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "cypress open",
+    "test:ci": "cypress run --headless --browser chrome"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
@@ -31,6 +33,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cypress": "^14.2.1",
+    "cypress-mochawesome-reporter": "^3.8.2",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",

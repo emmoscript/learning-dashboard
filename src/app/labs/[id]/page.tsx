@@ -1,135 +1,209 @@
 "use client";
 
-import { useContext, useEffect, useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react';
-import CodeLab from '@/components/CodeLab';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { CheckCircle, CloudLightning, Code, Terminal } from 'lucide-react';
+import React from 'react';
 
-// Mock lab exercises
-const labExercises = [
-  {
-    id: 1,
-    title: "Función de suma",
-    description: "Implementa una función `sum` que reciba dos números como parámetros y devuelva su suma.",
-    initialCode: "function sum(a, b) {\n  // Tu código aquí\n}",
-    testCode: "sum(5, 3) // Debe devolver 8\nsum(-1, 1) // Debe devolver 0",
-    testFunction: (code: string) => {
-      try {
-        // For demo purposes, we're using eval for testing
-        // In production, you would use a safer approach
-        const func = new Function('code', `
-          ${code}
-          return sum(5, 3) === 8 && sum(-1, 1) === 0;
-        `);
-        return func(code);
-      } catch {
-        // Ignore the error and return false
-        return false;
-      }
-    }
-  },
-  {
-    id: 2,
-    title: "Verificar palíndromo",
-    description: "Implementa una función `isPalindrome` que reciba una cadena y devuelva true si es un palíndromo (se lee igual de izquierda a derecha y de derecha a izquierda), o false en caso contrario.",
-    initialCode: "function isPalindrome(str) {\n  // Tu código aquí\n}",
-    testCode: "isPalindrome('radar') // Debe devolver true\nisPalindrome('hello') // Debe devolver false",
-    testFunction: (code: string) => {
-      try {
-        const func = new Function('code', `
-          ${code}
-          return isPalindrome('radar') === true && 
-                 isPalindrome('hello') === false;
-        `);
-        return func(code);
-      } catch {
-        // Ignore the error and return false
-        return false;
-      }
-    }
-  }
-];
+interface LabsDetailProps {
+  params: {
+    id: string;
+  };
+}
 
-export default function LabDetail({ params }: { params: { id: string } }) {
-  // Get ID only once on initial render, avoids React.use warning
-  const [labId] = useState(() => {
-    return params.id ? parseInt(params.id) : 0;
-  });
+export default function LabDetail({ params }: LabsDetailProps) {
+  const resolvedParams = React.use(params);
+  const labId = resolvedParams.id ? parseInt(resolvedParams.id) : null;
   
+  const [activeTab, setActiveTab] = useState<string>('instructions');
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const { user } = useContext(AuthContext);
   const router = useRouter();
-  const [labCompleted, setLabCompleted] = useState(false);
-  
-  const exercise = labExercises.find(lab => lab.id === labId);
-  
+
   useEffect(() => {
     if (!user) {
       router.push('/login');
       return;
     }
-    
-    if (!exercise) {
-      router.push('/courses/my-courses');
-      return;
+
+    // Check if the lab has been completed before
+    const completionKey = `lab_${labId}_completed`;
+    if (localStorage.getItem(completionKey) === 'true') {
+      setIsCompleted(true);
     }
-    
-    // Check if the lab is already completed
-    const isCompleted = localStorage.getItem(`lab-${user.id}-${labId}`) === 'completed';
-    setLabCompleted(isCompleted);
-  }, [user, exercise, labId, router]);
-  
-  if (!user || !exercise) return null;
-  
-  const handleLabComplete = () => {
+  }, [user, router, labId]);
+
+  const handleComplete = () => {
     // Mark lab as completed
-    localStorage.setItem(`lab-${user.id}-${labId}`, 'completed');
-    setLabCompleted(true);
-    
-    // Show success message
-    setTimeout(() => {
-      // Check if there's a next lab
-      const nextLabId = labId + 1;
-      const nextLab = labExercises.find(lab => lab.id === nextLabId);
-      
-      if (nextLab) {
-        router.push(`/labs/${nextLabId}`);
-      } else {
-        router.push('/courses/my-courses');
-      }
-    }, 2000);
+    localStorage.setItem(`lab_${labId}_completed`, 'true');
+    setIsCompleted(true);
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/courses/my-courses" className="flex items-center text-gray-600 hover:text-gray-900">
-              <ChevronLeft className="w-5 h-5 mr-1" />
-              <span>Volver a mis cursos</span>
-            </Link>
-            <div className="text-sm">
-              <span className={`px-2 py-1 rounded-full ${labCompleted ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}`}>
-                {labCompleted ? 'Completado' : 'En progreso'}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+  const labs = [
+    {
+      id: 1,
+      title: "Laboratorio de Análisis de Datos con Python",
+      description: "Aprende a utilizar Python y bibliotecas como Pandas, NumPy y Matplotlib para análisis de datos.",
+      instructions: [
+        "Configura un entorno virtual en Python",
+        "Instala las bibliotecas necesarias: pandas, numpy, matplotlib",
+        "Carga el dataset proporcionado",
+        "Realiza un análisis exploratorio de los datos",
+        "Visualiza los resultados utilizando gráficos adecuados"
+      ],
+      code: `import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-      {/* Lab Content */}
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">Laboratorio: {exercise.title}</h1>
-        
-        <div className="max-w-4xl mx-auto">
-          <CodeLab 
-            exercise={exercise}
-            onComplete={handleLabComplete}
-          />
+# Cargar datos
+df = pd.read_csv('datos_ejemplo.csv')
+
+# Mostrar información del dataset
+print(df.info())
+print(df.describe())
+
+# Visualización básica
+plt.figure(figsize=(10, 6))
+plt.hist(df['columna_numerica'], bins=20)
+plt.title('Distribución de valores')
+plt.xlabel('Valores')
+plt.ylabel('Frecuencia')
+plt.show()`,
+      terminal: [
+        "> python -m venv env",
+        "> source env/bin/activate  # En Windows: env\\Scripts\\activate",
+        "> pip install pandas numpy matplotlib",
+        "> python analisis_datos.py",
+        "Output:",
+        "<class 'pandas.core.frame.DataFrame'>",
+        "RangeIndex: 1000 entries, 0 to 999",
+        "Data columns (total 5 columns):",
+        " #   Column           Non-Null Count  Dtype  ",
+        "---  ------           --------------  -----  ",
+        " 0   columna_numerica 1000 non-null   float64",
+        " 1   categoria        1000 non-null   object ",
+        " 2   valores          1000 non-null   int64  ",
+        " 3   fecha            1000 non-null   object ",
+        " 4   resultado        1000 non-null   float64",
+        "dtypes: float64(2), int64(1), object(2)",
+        "memory usage: 39.1+ KB"
+      ]
+    }
+  ];
+
+  const lab = labs.find(l => l.id === labId);
+
+  if (!lab) {
+    return <div className="container mx-auto px-4 py-8">Laboratorio no encontrado</div>;
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-8">
+        <div className="p-6 border-b">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold">{lab.title}</h1>
+            {isCompleted && (
+              <div className="flex items-center text-green-600">
+                <CheckCircle className="w-5 h-5 mr-1" />
+                <span>Completado</span>
+              </div>
+            )}
+          </div>
+          <p className="text-gray-600 mt-2">{lab.description}</p>
         </div>
+        
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <div className="border-b">
+            <TabsList className="p-0 h-auto">
+              <TabsTrigger 
+                value="instructions" 
+                className="py-4 px-6 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none"
+              >
+                <Terminal className="w-4 h-4 mr-2" />
+                Instrucciones
+              </TabsTrigger>
+              <TabsTrigger 
+                value="code" 
+                className="py-4 px-6 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none"
+              >
+                <Code className="w-4 h-4 mr-2" />
+                Código
+              </TabsTrigger>
+              <TabsTrigger 
+                value="terminal" 
+                className="py-4 px-6 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none"
+              >
+                <CloudLightning className="w-4 h-4 mr-2" />
+                Terminal
+              </TabsTrigger>
+            </TabsList>
+          </div>
+          
+          <TabsContent value="instructions" className="p-6">
+            <h2 className="text-lg font-medium mb-4">Paso a paso:</h2>
+            <ol className="list-decimal pl-6 space-y-3">
+              {lab.instructions.map((instruction, index) => (
+                <li key={index} className="text-gray-700">{instruction}</li>
+              ))}
+            </ol>
+            
+            <div className="mt-8">
+              <Button 
+                onClick={handleComplete}
+                disabled={isCompleted}
+                className="w-full md:w-auto"
+              >
+                {isCompleted ? 'Laboratorio Completado' : 'Marcar como Completado'}
+              </Button>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="code" className="p-6">
+            <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+              <pre className="font-mono text-sm">
+                <code>{lab.code}</code>
+              </pre>
+            </div>
+            
+            <div className="mt-6 flex space-x-4">
+              <Button variant="outline">
+                Copiar Código
+              </Button>
+              <Button>
+                Ejecutar en Entorno Virtual
+              </Button>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="terminal" className="p-6">
+            <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+              <pre className="font-mono text-sm">
+                {lab.terminal.map((line, index) => (
+                  <div key={index} className={line.startsWith('>') ? 'text-green-400' : ''}>
+                    {line}
+                  </div>
+                ))}
+              </pre>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+      
+      <div className="flex justify-between">
+        <Button variant="outline" onClick={() => router.push('/courses/my-courses')}>
+          Volver a Mis Cursos
+        </Button>
+        
+        {isCompleted && (
+          <Button variant="outline" className="text-green-600 border-green-600">
+            <CheckCircle className="w-4 h-4 mr-2" />
+            Descargar Certificado
+          </Button>
+        )}
       </div>
     </div>
   );

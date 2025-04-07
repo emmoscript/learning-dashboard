@@ -133,5 +133,42 @@ export const CourseFacade = {
     Object.keys(userProgress).forEach(key => delete userProgress[parseInt(key)]);
     Object.keys(passedExams).forEach(key => delete passedExams[key]);
     Object.keys(completedModules).forEach(key => delete completedModules[key]);
+  },
+
+  // Verificar si un curso está incluido en la suscripción de un usuario
+  isCourseInUserSubscription: (userId: string, courseId: number): boolean => {
+    // Simulación: Verificar si el usuario tiene una suscripción activa
+    // En una implementación real, esto verificaría en la base de datos
+    const userSubscription = localStorage.getItem(`subscription_${userId}`);
+    
+    if (!userSubscription) {
+      return false;
+    }
+    
+    try {
+      const subscription = JSON.parse(userSubscription);
+      
+      // Verificar si la suscripción está activa
+      if (!subscription.active) {
+        return false;
+      }
+      
+      // Simulación: Los cursos disponibles dependen del plan
+      // En una implementación real, esto se obtendría de la base de datos
+      if (subscription.plan === 'premium') {
+        // El plan premium incluye todos los cursos
+        return true;
+      } else if (subscription.plan === 'basic') {
+        // El plan básico incluye solo ciertos cursos
+        // Simulamos una lista de cursos incluidos en el plan básico
+        const basicPlanCourses = [1, 2, 3, 5, 7, 9]; // IDs de cursos
+        return basicPlanCourses.includes(courseId);
+      }
+      
+      return false;
+    } catch (error) {
+      console.error('Error al verificar la suscripción:', error);
+      return false;
+    }
   }
 }; 

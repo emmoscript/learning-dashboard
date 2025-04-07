@@ -41,7 +41,7 @@ export default function LandingPage() {
               )}
             </div>
           </div>
-        </div>
+      </div>
       </section>
 
       {/* Featured Courses Section */}
@@ -361,8 +361,8 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+      </div>
+    </div>
       </section>
 
       {/* Call to Action */}
