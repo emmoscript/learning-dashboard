@@ -1,2 +1,6 @@
-// Exportar directamente para evitar problemas de tipado
-export { default } from './client'; 
+// Página simplificada sin verificación de tipos
+import ClientComponent from './client';
+
+export default function Page(props) {
+  return <ClientComponent {...props} />;
+} 

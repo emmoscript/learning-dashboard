@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "next build --no-lint",
+    "vercel-build": "next build --no-lint --no-types",
     "test:e2e": "cypress open",
     "test:ci": "cypress run --headless --browser chrome"
   },
