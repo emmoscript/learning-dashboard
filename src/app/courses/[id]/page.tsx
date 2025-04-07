@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { BookOpen, Users, Clock, BarChart } from 'lucide-react';
 import { CoursePaymentOptions } from '@/components/Course/CoursePaymentOptions';
-import React from 'react';
 
 interface CourseDetailProps {
   params: {
@@ -21,20 +20,27 @@ interface CourseDetailProps {
 }
 
 export default function CourseDetail({ params }: CourseDetailProps) {
-  const resolvedParams = React.use(params);
-  const courseId = resolvedParams.id ? parseInt(resolvedParams.id) : null;
+  // Extraer el ID del curso directamente sin React.use()
+  const courseId = params.id ? parseInt(params.id) : null;
   
   const [currentModule, setCurrentModule] = useState(0);
   const [currentContent, setCurrentContent] = useState<'video' | 'exam'>('video');
   const [completedModules, setCompletedModules] = useState<Set<number>>(new Set());
   const { user } = useContext(AuthContext);
   const router = useRouter();
-  const course = courseId ? CourseFacade.getCourseById(courseId) : null;
+  const [course, setCourse] = useState<any>(null);
+  
+  // Cargar el curso cuando cambie el ID
+  useEffect(() => {
+    if (courseId) {
+      const foundCourse = CourseFacade.getCourseById(courseId);
+      setCourse(foundCourse);
+    }
+  }, [courseId]);
 
   useEffect(() => {
     // Redirect if course doesn't exist
     if (!course) {
-      router.push('/courses/my-courses');
       return;
     }
 
@@ -85,7 +91,7 @@ export default function CourseDetail({ params }: CourseDetailProps) {
   }, [completedModules, course, currentModule, user]);
 
   if (!course) {
-    return <div className="container mx-auto p-8">Curso no encontrado</div>;
+    return <div className="container mx-auto p-8">Cargando curso...</div>;
   }
 
   const isEnrolled = user?.cursosInscritos?.includes(course.id) || false;
