@@ -12,10 +12,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { BookOpen, Users, Clock, BarChart } from 'lucide-react';
+import { CourseData } from '@/types/types';
 
-export default function CourseDetailClient({ id }) {
-  // Extraer el ID del curso directamente
-  const courseId = id ? parseInt(id) : null;
+interface CourseDetailClientProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function CourseDetailClient({ params }: CourseDetailClientProps) {
+  // Extraer el ID del curso directamente de los parámetros de la ruta
+  const courseId = params?.id ? parseInt(params.id) : null;
   
   const [currentModule, setCurrentModule] = useState(0);
   const [currentContent, setCurrentContent] = useState<'video' | 'exam'>('video');

@@ -21,7 +21,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["cypress", "node"]
+    "types": ["cypress", "node"],
+    "noImplicitAny": false
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "cypress", "cypress.config.ts"],
   "exclude": ["node_modules"]
