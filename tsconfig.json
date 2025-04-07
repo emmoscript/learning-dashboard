@@ -26,6 +26,14 @@
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "cypress", "cypress.config.ts"],
+  "include": [
+    "next-env.d.ts", 
+    "**/*.ts", 
+    "**/*.tsx", 
+    ".next/types/**/*.ts", 
+    "cypress", 
+    "cypress.config.ts",
+    "cypress/support/index.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
