@@ -9,7 +9,7 @@ export const courses: CourseData[] = [
     duration: "4 semanas",
     instructor: "Ana García",
     rating: 4.8,
-    imagen: "https://picsum.photos/600/400?random=1",
+    image: "https://picsum.photos/600/400?random=1",
     modules: [
       {
         title: "Fundamentos de Programación",
@@ -79,7 +79,7 @@ export const courses: CourseData[] = [
     duration: "6 semanas",
     instructor: "Carlos Mendoza",
     rating: 4.5,
-    imagen: "https://picsum.photos/600/400?random=2",
+    image: "https://picsum.photos/600/400?random=2",
     modules: [
       {
         title: "Fundamentos de HTML",
@@ -149,7 +149,7 @@ export const courses: CourseData[] = [
     duration: "8 semanas",
     instructor: "Laura Martínez",
     rating: 4.9,
-    imagen: "https://picsum.photos/600/400?random=3",
+    image: "https://picsum.photos/600/400?random=3",
     modules: [
       {
         title: "Fundamentos de React",
@@ -180,7 +180,7 @@ export const courses: CourseData[] = [
     duration: "10 semanas",
     instructor: "Alejandro Ruiz",
     rating: 4.7,
-    imagen: "https://picsum.photos/600/400?random=4",
+    image: "https://picsum.photos/600/400?random=4",
     modules: [
       {
         title: "Fundamentos de Python para Datos",
@@ -211,7 +211,7 @@ export const courses: CourseData[] = [
     duration: "7 semanas",
     instructor: "Miguel Torres",
     rating: 4.6,
-    imagen: "https://picsum.photos/600/400?random=5",
+    image: "https://picsum.photos/600/400?random=5",
     modules: [
       {
         title: "Fundamentos de Node.js",
@@ -242,7 +242,7 @@ export const courses: CourseData[] = [
     duration: "5 semanas",
     instructor: "Elena Gómez",
     rating: 4.8,
-    imagen: "https://picsum.photos/600/400?random=6",
+    image: "https://picsum.photos/600/400?random=6",
     modules: [
       {
         title: "Principios de Diseño UI",
@@ -273,7 +273,7 @@ export const courses: CourseData[] = [
     duration: "9 semanas",
     instructor: "Javier Rodríguez",
     rating: 4.7,
-    imagen: "https://picsum.photos/600/400?random=7",
+    image: "https://picsum.photos/600/400?random=7",
     modules: [
       {
         title: "Introducción a DevOps",
@@ -304,7 +304,7 @@ export const courses: CourseData[] = [
     duration: "8 semanas",
     instructor: "Sofía Castro",
     rating: 4.9,
-    imagen: "https://picsum.photos/600/400?random=8",
+    image: "https://picsum.photos/600/400?random=8",
     modules: [
       {
         title: "Machine Learning Básico",

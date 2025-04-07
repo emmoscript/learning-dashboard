@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "SKIP_TYPE_CHECK=true next build",
+    "build": "set SKIP_TYPE_CHECK=true && next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "SKIP_TYPE_CHECK=true next build --no-lint",
+    "vercel-build": "set SKIP_TYPE_CHECK=true && next build --no-lint",
     "test:e2e": "cypress open",
     "test:ci": "cypress run --headless --browser chrome"
   },

@@ -47,11 +47,6 @@ export default function Navbar() {
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             {user ? (
               <div className="flex gap-4 items-center">
-                <Link href="/courses/my-courses" className="flex items-center text-sm text-gray-600 hover:text-blue-600">
-                  <GraduationCap className="mr-1 h-4 w-4" />
-                  <span>Mis Cursos</span>
-                </Link>
-                
                 <ShoppingCartComponent />
                 
                 <Button variant="ghost" size="sm" onClick={handleLogout} className="text-sm">

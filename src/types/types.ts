@@ -8,6 +8,7 @@ export interface User {
   cursosInscritos?: number[];
   cursosComprados?: number[]; // IDs de cursos comprados individualmente
   suscripcionActiva?: PlanSuscripcion; // Plan de suscripción activo
+  labsInscritos?: number[]; // IDs de laboratorios inscritos
 }
 
 // Tipo de plan de suscripción
@@ -44,7 +45,7 @@ export interface CourseData {
 // Definición de módulo de curso
 export interface Module {
   title: string;
-  description: string;
+  description?: string;
   lessons: string[];
   questions?: Question[];
   videoUrl?: string;
@@ -98,4 +99,21 @@ export type CartContextType = {
   clearCart: () => void;
   getTotal: () => number;
   hasSuscription: () => boolean;
-}; 
+};
+
+// Definición del modelo de laboratorio
+export interface LabData {
+  id: number;
+  title: string;
+  description: string;
+  price?: number;
+  level: string;
+  duration: string;
+  instructor: string;
+  rating: number;
+  students?: number;
+  image?: string;
+  learningOutcomes?: string[];
+  prerequisites?: string[];
+  instructions?: string;
+} 

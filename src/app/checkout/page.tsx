@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CreditCard, CheckCircle, Info, ChevronLeft, UserCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-export default function CheckoutPage() {
+// Component that uses the useSearchParams hook
+function CheckoutContent() {
   const searchParams = useSearchParams();
   const planType = searchParams.get('plan') || 'basic';
   const [isProcessing, setIsProcessing] = useState(false);
@@ -217,5 +218,21 @@ export default function CheckoutPage() {
         {renderStep()}
       </div>
     </div>
+  );
+}
+
+// Loading fallback
+function CheckoutLoading() {
+  return <div className="min-h-screen bg-gray-50 py-12 flex items-center justify-center">
+    <p className="text-lg">Cargando checkout...</p>
+  </div>;
+}
+
+// Main component with Suspense boundary
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<CheckoutLoading />}>
+      <CheckoutContent />
+    </Suspense>
   );
 } 
